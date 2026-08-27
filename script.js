@@ -22,6 +22,18 @@ navMenu.querySelectorAll("a").forEach((link) => {
   });
 });
 
+const backdropSlides = document.querySelectorAll(".backdrop-slide");
+const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+let activeSlide = 0;
+
+if (backdropSlides.length > 1 && !reducedMotion) {
+  window.setInterval(() => {
+    backdropSlides[activeSlide].classList.remove("is-active");
+    activeSlide = (activeSlide + 1) % backdropSlides.length;
+    backdropSlides[activeSlide].classList.add("is-active");
+  }, 6500);
+}
+
 const observer = new IntersectionObserver(
   (entries) => {
     entries.forEach((entry) => {
